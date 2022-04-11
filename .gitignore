@@ -1,6 +1,7 @@
 # Model Files
 *.scorer
 *.tflite
+*.yml
 
 # Audio Files
 *.wav
