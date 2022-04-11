@@ -1,5 +1,7 @@
+# Change away from subprocess
+
 import subprocess
-import config
+from application.config import config
 
 
 def synthesize(output_text, model, speaker_file, language, output_file):

@@ -1,5 +1,5 @@
 import subprocess
-import config
+from application.config import config
 
 
 def record(file, duration):
