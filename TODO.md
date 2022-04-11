@@ -1,0 +1,3 @@
+- Change Synthesis Model
+- How to delete words and then have that change made over to voice recording? Timestamps?
+- Web App Continue
