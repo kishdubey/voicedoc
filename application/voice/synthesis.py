@@ -1,5 +1,3 @@
-# Change away from subprocess
-
 import subprocess
 from application.config import config
 
