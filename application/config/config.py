@@ -1,6 +1,7 @@
-# Turn to YAML later
-SPEAKER_FILE = 'audio/record.wav'
-SYNTHESIS_FILE = 'audio/synthesis.wav'
+import os
+
+SPEAKER_FILE = os.path.abspath('application/audio/record.wav')
+SYNTHESIS_FILE = os.path.abspath('application/audio/synthesis.wav')
 
 RECORD_DURATION = 60
 
