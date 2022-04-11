@@ -1,4 +1,4 @@
-- How to delete words and then have that change made over to voice recording? Timestamps?
+- How to edit audio through python
 - Web App Continue
 
 Setup reminders
