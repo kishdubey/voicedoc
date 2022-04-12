@@ -18,6 +18,13 @@ def concatenate(audio1, audio2):
     return audio1 + audio2
 
 
+def to_wav(audio):
+    '''
+    convert audio to wav format
+    '''
+    pass
+
+
 def _to_seconds(ms):
     return ms/1000
 

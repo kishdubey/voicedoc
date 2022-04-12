@@ -15,6 +15,7 @@ class Model(Enum):
 
 @dataclass
 class Config:
+    upload_folder:   str
     speaker_file:    str
     synthesis_file:  str
     duration:        int
@@ -22,12 +23,22 @@ class Config:
     model:           Model
     language:        Language
 
-    _speaker_file:   str = field(init=False, repr=False)
-    _synthesis_file: str = field(init=False, repr=False)
-    _duration:       int = field(init=False, repr=False)
-    _output_text:    str = field(init=False, repr=False)
-    _model:          Model = field(init=False, repr=False)
+    _upload_folder:  str      = field(init=False, repr=False)
+    _speaker_file:   str      = field(init=False, repr=False)
+    _synthesis_file: str      = field(init=False, repr=False)
+    _duration:       int      = field(init=False, repr=False)
+    _output_text:    str      = field(init=False, repr=False)
+    _model:          Model    = field(init=False, repr=False)
     _language:       Language = field(init=False, repr=False)
+
+    '''upload_folder getters and setters'''
+    @property
+    def upload_folder(self) -> str:
+        return self._upload_folder
+
+    @upload_folder.setter
+    def upload_folder(self, upload_folder: str):
+        self._upload_folder = upload_folder
 
     '''speaker_file getters and setters'''
     @property
@@ -85,8 +96,9 @@ class Config:
 
 
 config = Config(
-    speaker_file    = os.path.abspath('application/audio/record.wav'),
-    synthesis_file  = os.path.abspath('application/audio/synthesis.wav'),
+    upload_folder   = os.path.abspath('audio'),
+    speaker_file    = os.path.abspath('audio/record.wav'),
+    synthesis_file  = os.path.abspath('audio/synthesis.wav'),
     duration        = 60,
     output_text     = 'Hello World. Making sure this sounds human enough.',
     model           = Model.yourtts.value,

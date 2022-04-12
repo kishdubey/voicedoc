@@ -7,6 +7,10 @@ import random
 
 
 def transcribe(input_file):
+    '''
+    example call
+    transcribe(config.speaker_file)[0]
+    '''
     device = torch.device('cpu')
     model, decoder, utils = torch.hub.load(repo_or_dir='snakers4/silero-models',
                                            model='silero_stt',
@@ -33,6 +37,3 @@ def transcribe(input_file):
         transcript.append(decoder(word.cpu(), wav_len, word_align=True)[-1])
 
     return transcript
-
-
-print(transcribe(config.speaker_file)[0][0])
