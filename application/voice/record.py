@@ -1,5 +1,5 @@
 import subprocess
-from application.config import config
+from application.config.config import config
 
 
 def record(file, duration):
@@ -12,4 +12,4 @@ def record(file, duration):
     ])
 
 
-record(config.SPEAKER_FILE, config.RECORD_DURATION)
+record(config.speaker_file, config.duration)

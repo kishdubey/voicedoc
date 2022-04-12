@@ -1,5 +1,5 @@
 import subprocess
-from application.config import config
+from application.config.config import config
 
 
 def synthesize(output_text, model, speaker_file, language, output_file):
@@ -13,5 +13,5 @@ def synthesize(output_text, model, speaker_file, language, output_file):
     ])
 
 
-synthesize(config.OUTPUT_TEXT, config.MODEL, config.SPEAKER_FILE,
-           config.LANGUAGE, config.SYNTHESIS_FILE)
+synthesize(config.output_text, config.model, config.speaker_file,
+           config.language, config.synthesis_file)

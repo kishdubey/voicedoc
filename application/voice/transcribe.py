@@ -1,7 +1,7 @@
 # Silero STT
 
 import torch
-from application.config import config
+from application.config.config import config
 from glob import glob
 import random
 
@@ -35,4 +35,4 @@ def transcribe(input_file):
     return transcript
 
 
-print(transcribe(config.SPEAKER_FILE)[0][0])
+print(transcribe(config.speaker_file)[0][0])
