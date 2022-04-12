@@ -98,6 +98,11 @@
         >
           <div class="col-12 col-lg-5">
             <h2 class="display-4 lh-1 mb-4">Enter a new age of web design</h2>
+            {% set filename = audio_file %}
+            <audio controls src="{{ url_for('static', filename=filename) }}">
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
             <p class="lead fw-normal text-muted mb-5 mb-lg-0">
               This section is perfect for featuring some information about your
               application, why it was built, the problem it solves, or anything

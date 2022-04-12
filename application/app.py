@@ -1,12 +1,16 @@
-from flask import Flask, render_template, request
+import os
+
+from flask import Flask, redirect, render_template, request, flash, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
 from application.voice.transcribe import transcribe
 from application.voice.synthesis import synthesize
 from application.voice import edit
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = config.upload_folder
+app.secret_key = "super secret key"
 
 
 @app.route('/')
@@ -18,9 +22,11 @@ def index():
 def edit():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(secure_filename(f.filename))
-        config.speaker_file = f.filename
-        return render_template("edit.html")
+        f.save(os.path.join(
+            app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+        config.speaker_file = 'audio/' + f.filename
+    return render_template("edit.html", audio_file=config.speaker_file)
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
