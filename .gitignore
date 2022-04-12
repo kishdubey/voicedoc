@@ -1,3 +1,7 @@
+# Jupyter
+*.ipynb
+.ipynb_checkpoints
+
 # Model Files
 *.scorer
 *.tflite
