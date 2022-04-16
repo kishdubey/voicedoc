@@ -17,6 +17,7 @@ def trim(audio, duration, before=True):
 def concatenate(audio1, audio2):
     return audio1 + audio2
 
+
 def _to_seconds(ms):
     return ms/1000
 

@@ -25,7 +25,8 @@ def edit():
         f.save(os.path.join(
             app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
         config.speaker_file = 'audio/' + f.filename
-    return render_template("edit.html", audio_file=config.speaker_file)
+        config.transcribe_file = os.path.abspath(f"{config.upload_folder}/{f.filename}")
+    return render_template("edit.html", audio_file=config.speaker_file, transcript=transcribe(config.transcribe_file)[0][0])
     return redirect(url_for('index'))
 
 

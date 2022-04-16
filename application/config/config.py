@@ -17,7 +17,7 @@ class Model(Enum):
 class Config:
     upload_folder:   str
     speaker_file:    str
-    synthesis_file:  str
+    transcribe_file:  str
     duration:        int
     output_text:     str
     model:           Model
@@ -25,7 +25,7 @@ class Config:
 
     _upload_folder:  str      = field(init=False, repr=False)
     _speaker_file:   str      = field(init=False, repr=False)
-    _synthesis_file: str      = field(init=False, repr=False)
+    _transcribe_file: str      = field(init=False, repr=False)
     _duration:       int      = field(init=False, repr=False)
     _output_text:    str      = field(init=False, repr=False)
     _model:          Model    = field(init=False, repr=False)
@@ -49,14 +49,14 @@ class Config:
     def speaker_file(self, speaker_file: str):
         self._speaker_file = speaker_file
 
-    '''synthesis_file getters and setters'''
+    '''transcribe_file getters and setters'''
     @property
-    def synthesis_file(self) -> str:
-        return self._synthesis_file
+    def transcribe_file(self) -> str:
+        return self._transcribe_file
 
-    @synthesis_file.setter
-    def synthesis_file(self, synthesis_file: str):
-        self._synthesis_file = synthesis_file
+    @transcribe_file.setter
+    def transcribe_file(self, transcribe_file: str):
+        self._transcribe_file = transcribe_file
 
     '''duration getters and setters'''
     @property
@@ -97,8 +97,8 @@ class Config:
 
 config = Config(
     upload_folder   = 'static/audio',
-    speaker_file    = os.path.abspath('static/audio/record.wav'),
-    synthesis_file  = os.path.abspath('static/audio/synthesis.wav'),
+    speaker_file    = os.path.abspath('application/static/audio/record.wav'),
+    transcribe_file  = os.path.abspath('application/static/audio/synthesis.wav'),
     duration        = 60,
     output_text     = 'Hello World. Making sure this sounds human enough.',
     model           = Model.yourtts.value,

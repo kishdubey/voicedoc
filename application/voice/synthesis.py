@@ -6,7 +6,7 @@ def synthesize(output_text, model, speaker_file, language, output_file):
     '''
     example call
     synthesize(config.output_text, config.model, config.speaker_file,
-           config.language, config.synthesis_file)
+           config.language, synthesis_file)
     '''
     subprocess.run([
         "tts",
