@@ -4,7 +4,7 @@ from flask import Flask, redirect, render_template, request, flash, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcribe import transcribe
+from application.voice.transcribe import transcribe, to_words
 from application.voice.synthesis import synthesize
 from application.voice import edit
 
@@ -25,8 +25,11 @@ def edit():
         f.save(os.path.join(
             app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
         config.speaker_file = 'audio/' + f.filename
-        config.transcribe_file = os.path.abspath(f"{config.upload_folder}/{f.filename}")
-    return render_template("edit.html", audio_file=config.speaker_file, transcript=transcribe(config.transcribe_file)[0][0])
+        config.transcribe_file = os.path.abspath(
+            f"{config.upload_folder}/{f.filename}")
+
+        transcript = transcribe(config.transcribe_file)
+    return render_template("edit.html", audio_file=config.speaker_file, transcript=transcript, transcript_words=to_words(transcript))
     return redirect(url_for('index'))
 
 

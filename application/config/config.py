@@ -98,7 +98,7 @@ class Config:
 config = Config(
     upload_folder   = 'static/audio',
     speaker_file    = os.path.abspath('application/static/audio/record.wav'),
-    transcribe_file  = os.path.abspath('application/static/audio/synthesis.wav'),
+    transcribe_file  = os.path.abspath('application/static/audio/record.wav'),
     duration        = 60,
     output_text     = 'Hello World. Making sure this sounds human enough.',
     model           = Model.yourtts.value,

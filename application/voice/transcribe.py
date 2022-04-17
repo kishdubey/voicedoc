@@ -36,4 +36,14 @@ def transcribe(input_file):
     for word in output:
         transcript.append(decoder(word.cpu(), wav_len, word_align=True)[-1])
 
-    return transcript
+    return transcript[0]
+
+def to_words(transcript):
+    '''
+    Get just the the words from timestamped transcript object  
+    '''
+    transcript_words = []
+    for script in transcript:
+        transcript_words.append(script['word'])
+
+    return ' '.join(transcript_words)
