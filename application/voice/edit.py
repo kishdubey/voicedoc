@@ -5,11 +5,14 @@ def get_audio(filepath):
     return AudioSegment.from_wav(filepath)
 
 
-def trim(audio, time_start, time_finish):
+def trim(audio_path, time_start, time_finish):
     '''
-    Remove words from transcript.
+    Remove words from audio.
     '''
-    pass
+    audio = get_audio(audio_path)
+    trim = audio[:_to_milliseconds(time_start)] + audio[_to_milliseconds(time_finish):]
+
+    trim.export(audio_path, format="wav")
 
 
 def concatenate(audio1, audio2, timestamp):
