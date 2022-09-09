@@ -92,40 +92,52 @@
     </nav>
     <!-- Basic features section-->
     <section class="bg-light">
-      <div class="px-5 m-5">
-        <div class="row">
-          <div class="col-md-12">
+      <div>
+        <form action="{{ url_for('handle_data') }}" method="post">
+          <div class="px-5 m-5">
             <div class="row">
-              <div class="col-md-6">
-                <p class="text-center">
-                  {% set filename = audio_file %}
-                  <audio
-                    controls
-                    src="{{ url_for('static', filename=filename) }}"
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="text-center">
+                      {% set filename = audio_file %}
+                      <audio
+                        controls
+                        src="{{ url_for('static', filename=filename) }}"
+                      >
+                        Your browser does not support the
+                        <code>audio</code> element.
+                      </audio>
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="text-center">
+                      <button
+                        type="submit"
+                        class="rounded btn btn-primary btn-large rounded-pill"
+                      >
+                        Export New Audio
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div contenteditable="true" class="col-md-12 m-5">
+                <div class="jumbotron">
+                  <textarea
+                    name="profileFilepath"
+                    type="text"
+                    id="transcript_space"
+                    class="form-control lead fw-normal text-muted mb-5 mb-lg-0"
+                    rows="3"
                   >
-                    Your browser does not support the
-                    <code>audio</code> element.
-                  </audio>
-                </p>
-              </div>
-              <div class="col-md-6">
-                <p class="text-center">
-                  <a class="rounded btn btn-primary btn-large rounded-pill" href="#">Export New Audio</a>
-                </p>
+{{  transcript_words  }}</textarea
+                  >
+                </div>
               </div>
             </div>
           </div>
-          <div contentEditable="true" class="col-md-12 m-5">
-            <div class="jumbotron">
-              <p
-                id="transcript_space"
-                class="lead fw-normal text-muted mb-5 mb-lg-0"
-              >
-                {{ transcript_words }}
-              </p>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
     </section>
 

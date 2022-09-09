@@ -15,21 +15,21 @@ class Model(Enum):
 
 @dataclass
 class Config:
-    upload_folder:   str
-    speaker_file:    str
+    upload_folder:    str
+    speaker_file:     str
     transcribe_file:  str
-    duration:        int
-    output_text:     str
-    model:           Model
-    language:        Language
+    duration:         int
+    output_text:      str
+    model:            Model
+    language:         Language
 
-    _upload_folder:  str      = field(init=False, repr=False)
-    _speaker_file:   str      = field(init=False, repr=False)
+    _upload_folder:   str      = field(init=False, repr=False)
+    _speaker_file:    str      = field(init=False, repr=False)
     _transcribe_file: str      = field(init=False, repr=False)
-    _duration:       int      = field(init=False, repr=False)
-    _output_text:    str      = field(init=False, repr=False)
-    _model:          Model    = field(init=False, repr=False)
-    _language:       Language = field(init=False, repr=False)
+    _duration:        int      = field(init=False, repr=False)
+    _output_text:     str      = field(init=False, repr=False)
+    _model:           Model    = field(init=False, repr=False)
+    _language:        Language = field(init=False, repr=False)
 
     '''upload_folder getters and setters'''
     @property
