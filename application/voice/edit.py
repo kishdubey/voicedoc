@@ -13,14 +13,20 @@ def trim(audio_path, time_start, time_finish):
     trim = audio[:_to_milliseconds(time_start)] + audio[_to_milliseconds(time_finish):]
 
     trim.export(audio_path, format="wav")
+    return trim
 
 
-def concatenate(audio1, audio2, timestamp):
+def concatenate(audio_path, audio_to_add_path, timestamp):
     '''
     Adding synthesized audio at duration to another audio
     '''
-    pass
+    audio = get_audio(audio_path)
+    audio_to_add = get_audio(audio_to_add_path)
 
+    concat = audio[:_to_milliseconds(timestamp)] + audio_to_add + audio[_to_milliseconds(timestamp):]
+    concat.export(audio_path, format="wav")
+
+    return concat
 
 def slice(audio, duration, before=True):
     '''
@@ -37,3 +43,4 @@ def _to_seconds(ms):
 
 def _to_milliseconds(s):
     return s*1000
+    
