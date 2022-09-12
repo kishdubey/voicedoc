@@ -47,4 +47,4 @@ def to_words(transcript):
     for script in transcript:
         transcript_words.append(script['word'])
 
-    return ' '.join(transcript_words)
+    return transcript_words

@@ -94,8 +94,18 @@
     <section class="bg-light">
       <div class="pb-5">
         <form action="{{ url_for('handle_data') }}" method="post">
-          <input type="hidden" id="transcript" name="transcript" value="{{ transcript }}">
-          <input type="hidden" id="transcriptWords" name="transcriptWords" value="{{ transcript_words }}">
+          <input
+            type="hidden"
+            id="transcript"
+            name="transcript"
+            value="{{ transcript }}"
+          />
+          <input
+            type="hidden"
+            id="transcriptWords"
+            name="transcriptWords"
+            value="{{ transcript_words }}"
+          />
           <div class="px-5 m-5">
             <div class="row">
               <div class="col-md-12">
@@ -124,18 +134,70 @@
                   </div>
                 </div>
               </div>
-              <div contenteditable="true" class="col-md-12 m-5">
+              <div class="col-md-12 m-5">
                 <div class="jumbotron">
-                  <textarea
+                  <!-- <textarea
                     name="updatedTranscript"
                     type="text"
                     id="transcript_space"
                     class="form-control lead fw-normal text-muted mb-5 mb-lg-0"
                     rows="5"
-                    style="font-size: 30pt"
+                    style="font-size: 30pt;" 
                   >
 {{  transcript_words  }}</textarea
+                  > -->
+                  <div
+                    class="form-control lead fw-normal text-muted mb-5 mb-lg-0"
                   >
+                    <script type="text/javascript">
+                      function deleteWord(wordID) {
+                        console.log(wordID);
+                        element = document.getElementById(wordID);
+                        element.innerHTML = `<del>${element.text}</del>`;
+                        element.style.color = "red";
+                        element.onclick = function () {
+                          unDeleteWord(wordID);
+                        };
+                      }
+
+                      function unDeleteWord(wordID) {
+                        console.log(wordID);
+                        element = document.getElementById(wordID);
+                        element.innerHTML = `${element.text}`;
+                        element.style.color = "#6c757d";
+                        element.onclick = function () {
+                          deleteWord(wordID);
+                        };
+                      }
+                    </script>
+                    <tr>
+                      {% for n in range(transcript_words| length) %}
+                      <td>
+                        <a
+                          id="word_{{ n }}"
+                          onclick="deleteWord(this.id)"
+                          style="
+                            font-size: 30pt;
+                            color: #6c757d;
+                            text-decoration: none;
+                          "
+                          href="#"
+                          >{{ transcript_words[n] }}</a
+                        >
+
+                        <a
+                          style="
+                            font-size: 30pt;
+                            color: #6c757d;
+                            text-decoration: none;
+                          "
+                          href="#"
+                          >&nbsp</a
+                        >
+                      </td>
+                      {% endfor %}
+                    </tr>
+                  </div>
                 </div>
               </div>
             </div>

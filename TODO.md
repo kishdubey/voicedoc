@@ -7,3 +7,10 @@
 Setup reminders
 - pip install -e . (to install voicedoc package)
 - install requirements
+
+
+
+turn each word into a p tag on its own, do for loop in jinja and paste. then do strke through to delete and show deleted
+then to add new word make green and add tag between x and y. 
+javascript
+how to caputre that for input?
