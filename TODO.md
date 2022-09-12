@@ -8,4 +8,4 @@ Setup reminders
 - pip install -e . (to install voicedoc package)
 - install requirements
 
-then to add new word make green and add tag between x and y
+how to get valid and unvalid words to python

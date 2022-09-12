@@ -35,8 +35,7 @@ def edit():
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    # updatedTranscript, transcript, transcriptWords
-    return request.form['transcriptWords']
+    return request.form['validWords']
 
 
 if __name__ == "__main__":

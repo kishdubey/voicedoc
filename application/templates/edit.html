@@ -136,53 +136,16 @@
               </div>
               <div class="col-md-12 m-5">
                 <div class="jumbotron">
-                  <!-- <textarea
-                    name="updatedTranscript"
-                    type="text"
-                    id="transcript_space"
-                    class="form-control lead fw-normal text-muted mb-5 mb-lg-0"
-                    rows="5"
-                    style="font-size: 30pt;" 
-                  >
-{{  transcript_words  }}</textarea
-                  > -->
                   <div
                     class="form-control lead fw-normal text-muted mb-5 mb-lg-0"
                   >
-                    <script type="text/javascript">
-                      function deleteWord(wordID) {
-                        element = document.getElementById(wordID);
-                        element.innerHTML = `<del>${element.text}</del>`;
-                        element.style.color = "red";
-                        element.onclick = function () {
-                          unDeleteWord(wordID);
-                        };
-                      }
-
-                      function unDeleteWord(wordID) {
-                        element = document.getElementById(wordID);
-                        element.innerHTML = `${element.text}`;
-                        element.style.color = "#6c757d";
-                        element.onclick = function () {
-                          deleteWord(wordID);
-                        };
-                      }
-
-                      function addWord(wordID) {
-                        console.log(wordID);
-                        element = document.getElementById(wordID);
-                        element.innerHTML = " " +prompt("What text would you like to add?")+ " "
-                        element.style.color = "green";
-                        element.onclick = function () {
-                          deleteWord(wordID);
-                        };
-                      }
-                    </script>
+                    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
                     <tr>
                       {% for n in range(transcript_words| length) %}
                       <td>
                         <a
                           id="word_{{ n }}"
+                          class="validWords"
                           onclick="deleteWord(this.id)"
                           style="
                             font-size: 30pt;
