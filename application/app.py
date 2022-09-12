@@ -32,10 +32,12 @@ def edit():
     return render_template("edit.html", audio_file=config.speaker_file, transcript=transcript, transcript_words=to_words(transcript))
     return redirect(url_for('index'))
 
+
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    return request.form['profileFilepath']
-    
+    # updatedTranscript, transcript, transcriptWords
+    return request.form['transcriptWords']
+
 
 if __name__ == "__main__":
     app.run(debug=True)

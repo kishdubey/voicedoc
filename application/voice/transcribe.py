@@ -38,6 +38,7 @@ def transcribe(input_file):
 
     return transcript[0]
 
+
 def to_words(transcript):
     '''
     Get just the the words from timestamped transcript object  
