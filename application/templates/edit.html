@@ -151,7 +151,6 @@
                   >
                     <script type="text/javascript">
                       function deleteWord(wordID) {
-                        console.log(wordID);
                         element = document.getElementById(wordID);
                         element.innerHTML = `<del>${element.text}</del>`;
                         element.style.color = "red";
@@ -161,10 +160,19 @@
                       }
 
                       function unDeleteWord(wordID) {
-                        console.log(wordID);
                         element = document.getElementById(wordID);
                         element.innerHTML = `${element.text}`;
                         element.style.color = "#6c757d";
+                        element.onclick = function () {
+                          deleteWord(wordID);
+                        };
+                      }
+
+                      function addWord(wordID) {
+                        console.log(wordID);
+                        element = document.getElementById(wordID);
+                        element.innerHTML = " " +prompt("What text would you like to add?")+ " "
+                        element.style.color = "green";
                         element.onclick = function () {
                           deleteWord(wordID);
                         };
@@ -186,6 +194,8 @@
                         >
 
                         <a
+                          id="space_{{ n }}"
+                          onclick="addWord(this.id)"
                           style="
                             font-size: 30pt;
                             color: #6c757d;
