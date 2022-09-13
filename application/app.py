@@ -1,10 +1,11 @@
 import os
+import ast
 
 from flask import Flask, redirect, render_template, request, flash, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcribe import transcribe, to_words
+from application.voice.transcribe import transcribe, to_words, find_word
 from application.voice.synthesis import synthesize
 from application.voice import edit
 
@@ -35,9 +36,18 @@ def edit():
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    print(request)
-    return request.form['transcriptWords']
+    valid_words = request.form['validWords'].split(',')
+    unvalid_words = request.form['unvalidWords'].split(',')
+    transcript_words = ast.literal_eval(request.form['transcriptWords'])
+    transcript = ast.literal_eval(request.form['transcript'])
 
+    # remove words
+    unvalid_word_timestamps = [] # getting timestamps for unvalid words
+    for word in unvalid_words:
+        word_timestamp = find_word(word, transcript)
+        unvalid_word_timestamps.append(word_timestamp)
+    
+    return request.form['validWords']
 
 if __name__ == "__main__":
     app.run(debug=True)

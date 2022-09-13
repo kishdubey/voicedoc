@@ -12,7 +12,7 @@ def trim(audio_path, time_start, time_finish):
     audio = get_audio(audio_path)
     trim = audio[:_to_milliseconds(time_start)] + audio[_to_milliseconds(time_finish):]
 
-    trim.export(audio_path, format="wav")
+    trim.export("trim.wav", format="wav")
     return trim
 
 

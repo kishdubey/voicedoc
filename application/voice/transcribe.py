@@ -48,3 +48,14 @@ def to_words(transcript):
         transcript_words.append(script['word'])
 
     return transcript_words
+
+def find_word(word, transcript):
+    '''
+    Find word within timestamped transcript. Returns first occurence of word.
+    '''
+    for script in transcript:
+        if script['word'] == word:
+            return script
+    
+    return None
+    
