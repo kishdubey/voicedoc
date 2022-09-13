@@ -45,3 +45,22 @@ function getUnvalidWords() {
   }
   return unvalidWords;
 }
+
+function sendWords() {
+  validWords = JSON.stringify(getValidWords());
+  unvalidWords = JSON.stringify(getUnvalidWords());
+
+  words = JSON.stringify([validWords, unvalidWords]);
+
+  console.log(words);
+  $.ajax({
+    url: '/handle_data',
+    type: "POST",
+    data: {data: words},
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    })
+    .done(function(result){
+        console.log(result)
+    })
+}

@@ -7,5 +7,3 @@
 Setup reminders
 - pip install -e . (to install voicedoc package)
 - install requirements
-
-how to get valid and unvalid words to python
