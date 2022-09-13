@@ -94,9 +94,10 @@
     <section class="bg-light">
       <div class="pb-5">
         <form
+          name="editForm"
           action="{{ url_for('handle_data') }}"
           method="post"
-          onsubmit="sendWords()"
+          onsubmit="setWords()"
         >
           <div class="px-5 m-5">
             <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
@@ -179,6 +180,18 @@
             id="transcriptWords"
             name="transcriptWords"
             value="{{ transcript_words }}"
+          />
+          <input
+            type="hidden"
+            id="validWords"
+            name="validWords"
+            value=""
+          />
+          <input
+            type="hidden"
+            id="unvalidWords"
+            name="unvalidWords"
+            value=""
           />
         </form>
       </div>

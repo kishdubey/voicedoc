@@ -46,21 +46,31 @@ function getUnvalidWords() {
   return unvalidWords;
 }
 
-function sendWords() {
-  validWords = JSON.stringify(getValidWords());
-  unvalidWords = JSON.stringify(getUnvalidWords());
+function setWords() {
+  var validWords = getValidWords();
+  var unvalidWords = getUnvalidWords();
 
-  words = JSON.stringify([validWords, unvalidWords]);
+  document.editForm.validWords.value = validWords;
+  document.editForm.unvalidWords.value = unvalidWords;
 
-  console.log(words);
-  $.ajax({
-    url: '/handle_data',
-    type: "POST",
-    data: {data: words},
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    })
-    .done(function(result){
-        console.log(result)
-    })
+  return true;
 }
+
+// function sendWords() {
+//   validWords = JSON.stringify(getValidWords());
+//   unvalidWords = JSON.stringify(getUnvalidWords());
+
+//   words = JSON.stringify([validWords, unvalidWords]);
+
+//   console.log(words);
+//   $.ajax({
+//     url: '/handle_data',
+//     type: "POST",
+//     data: {data: words},
+//     contentType: "application/json; charset=utf-8",
+//     dataType: "json",
+//     })
+//     .done(function(result){
+//         console.log(result)
+//     })
+// }
