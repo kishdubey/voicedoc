@@ -49,6 +49,7 @@ def to_words(transcript):
 
     return transcript_words
 
+
 def find_word(word, transcript):
     '''
     Find word within timestamped transcript. Returns first occurence of word.
@@ -56,6 +57,16 @@ def find_word(word, transcript):
     for script in transcript:
         if script['word'] == word:
             return script
-    
+
     return None
-    
+
+
+def adjust_transcript(time, transcript):
+    '''
+    Adjusts rest of timestamped transcript to reflect deleted clipping of duration, time
+    '''
+    for script in transcript:
+        script['start_ts'] -= time
+        script['end_ts'] -= time
+
+    return transcript

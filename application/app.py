@@ -41,13 +41,22 @@ def handle_data():
     transcript_words = ast.literal_eval(request.form['transcriptWords'])
     transcript = ast.literal_eval(request.form['transcript'])
 
-    # remove words
-    unvalid_word_timestamps = [] # getting timestamps for unvalid words
+    unvalid_word_timestamps = []  # getting timestamps for unvalid words
     for word in unvalid_words:
         word_timestamp = find_word(word, transcript)
         unvalid_word_timestamps.append(word_timestamp)
-    
+
+    # remove word from transcript from unvalid_word_timestamps
+    # delete that words from unvalid_word_timestamps
+    # adjust_transcript unvalid_word_timestamps and transcript
+    # loop
+
+    # find word to add in betweeen two valid words
+    # syntheizes that word
+    # append in between end_ts and start_ts of words on left and right respectively
+
     return request.form['validWords']
+
 
 if __name__ == "__main__":
     app.run(debug=True)
