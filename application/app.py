@@ -43,13 +43,14 @@ def handle_data():
 
     # getting timestamps for unvalid words
     unvalid_word_timestamps = []
-    for word in unvalid_words:  unvalid_word_timestamps.append(find_word(word, transcript))
+    for word in unvalid_words:
+        unvalid_word_timestamps.append(find_word(word, transcript))
     unvalid_word_timestamps = list(filter(None, unvalid_word_timestamps))
 
     for word in unvalid_word_timestamps:
-        time = int(word['end_ts'] - word['start_ts'])
-        time_start = word['start_ts']
-        time_end = word['end_ts']
+        time = word['end_ts'] - word['start_ts']
+        time_start = word['start_ts'] - time*2 if (word['start_ts'] - time*2) > 0 else 0
+        time_end = word['end_ts'] + time*2
 
         # remove word from transcript audio from unvalid_word_timestamps
         trim(config.transcribe_file, time_start, time_end)
@@ -66,7 +67,7 @@ def handle_data():
     # syntheizes that word
     # append in between end_ts and start_ts of words on left and right respectively
 
-    return request.form['validWords']
+    return "Trimmed"
 
 
 if __name__ == "__main__":

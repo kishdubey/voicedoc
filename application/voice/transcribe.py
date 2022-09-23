@@ -1,5 +1,3 @@
-# Silero STT
-
 import torch
 from application.config.config import config
 from glob import glob
@@ -68,7 +66,7 @@ def delete_word(word, transcript):
     for script in transcript:
         if script == word:
             transcript.remove(script)
-            
+
     return transcript
 
 

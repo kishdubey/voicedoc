@@ -7,5 +7,3 @@
 Setup reminders
 - pip install -e . (to install voicedoc package)
 - install requirements
-
-dealing with multiple deletes at the same time with the actual timestamp changing in the orignial audio. 
