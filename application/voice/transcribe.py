@@ -61,6 +61,17 @@ def find_word(word, transcript):
     return None
 
 
+def delete_word(word, transcript):
+    '''
+    Find word within timestamped transcript. Returns first occurence of word.
+    '''
+    for script in transcript:
+        if script == word:
+            transcript.remove(script)
+            
+    return transcript
+
+
 def adjust_transcript(time, transcript):
     '''
     Adjusts rest of timestamped transcript to reflect deleted clipping of duration, time

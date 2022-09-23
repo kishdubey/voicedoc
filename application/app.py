@@ -5,9 +5,9 @@ from flask import Flask, redirect, render_template, request, flash, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcribe import transcribe, to_words, find_word
+from application.voice.transcribe import transcribe, to_words, find_word, delete_word, adjust_transcript
 from application.voice.synthesis import synthesize
-from application.voice import edit
+from application.voice.edit import trim
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = config.upload_folder
@@ -41,15 +41,26 @@ def handle_data():
     transcript_words = ast.literal_eval(request.form['transcriptWords'])
     transcript = ast.literal_eval(request.form['transcript'])
 
-    unvalid_word_timestamps = []  # getting timestamps for unvalid words
-    for word in unvalid_words:
-        word_timestamp = find_word(word, transcript)
-        unvalid_word_timestamps.append(word_timestamp)
+    # getting timestamps for unvalid words
+    unvalid_word_timestamps = []
+    for word in unvalid_words:  unvalid_word_timestamps.append(find_word(word, transcript))
+    unvalid_word_timestamps = list(filter(None, unvalid_word_timestamps))
 
-    # remove word from transcript from unvalid_word_timestamps
-    # delete that words from unvalid_word_timestamps
-    # adjust_transcript unvalid_word_timestamps and transcript
-    # loop
+    for word in unvalid_word_timestamps:
+        time = int(word['end_ts'] - word['start_ts'])
+        time_start = word['start_ts']
+        time_end = word['end_ts']
+
+        # remove word from transcript audio from unvalid_word_timestamps
+        trim(config.transcribe_file, time_start, time_end)
+
+        # delete that word obj from unvalid_word_timestamps and transcript
+        delete_word(word, transcript)
+        delete_word(word, unvalid_word_timestamps)
+
+        # adjust_transcript transcript and unvalid_word_timestamps
+        adjust_transcript(time, transcript)
+        adjust_transcript(time, unvalid_word_timestamps)
 
     # find word to add in betweeen two valid words
     # syntheizes that word
