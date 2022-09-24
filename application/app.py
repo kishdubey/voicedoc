@@ -1,13 +1,11 @@
 import os
 import ast
 
-from flask import Flask, current_app, redirect, render_template, request, flash, send_file, send_from_directory, url_for
+from flask import Flask, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcribe import transcribe, to_words, find_word, delete_word, adjust_transcript
-from application.voice.synthesis import synthesize
-from application.voice.edit import trim
+from application.voice.transcribe import get_timestamps, remove_words, transcribe, to_words
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = config.upload_folder
@@ -42,27 +40,10 @@ def handle_data():
         transcript = ast.literal_eval(request.form['transcript'])
 
         # getting timestamps for unvalid words
-        unvalid_word_timestamps = []
-        for word in unvalid_words:
-            unvalid_word_timestamps.append(find_word(word, transcript))
-        unvalid_word_timestamps = list(filter(None, unvalid_word_timestamps))
-
-        for word in unvalid_word_timestamps:
-            time = word['end_ts'] - word['start_ts']
-            time_start = word['start_ts'] - time * \
-                2 if (word['start_ts'] - time*2) > 0 else 0
-            time_end = word['end_ts'] + time
-
-            # remove word from transcript audio from unvalid_word_timestamps
-            trim(config.transcribe_file, time_start, time_end)
-
-            # delete that word obj from unvalid_word_timestamps and transcript
-            delete_word(word, transcript)
-            delete_word(word, unvalid_word_timestamps)
-
-            # adjust_transcript transcript and unvalid_word_timestamps
-            adjust_transcript(time, transcript)
-            adjust_transcript(time, unvalid_word_timestamps)
+        unvalid_word_timestamps = get_timestamps(unvalid_words, transcript)
+        
+        # removing unvalid words from transcript and audio
+        transcript = remove_words(unvalid_word_timestamps, transcript)
 
         # find word to add in betweeen two valid words
         # syntheizes that word

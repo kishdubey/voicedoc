@@ -1,4 +1,5 @@
 import torch
+from application.voice.edit import trim
 from application.config.config import config
 from glob import glob
 import random
@@ -77,5 +78,36 @@ def adjust_transcript(time, transcript):
     for script in transcript:
         script['start_ts'] -= time
         script['end_ts'] -= time
+
+    return transcript
+
+
+def get_timestamps(words, transcript):
+    '''
+    Get timestamps for transcript for list of words
+    '''
+    word_timestamps = []
+    for word in words:
+        word_timestamps.append(find_word(word, transcript))
+    return list(filter(None, word_timestamps))
+
+
+def remove_words(word_timestamps, transcript):
+    for word in word_timestamps:
+        time = word['end_ts'] - word['start_ts']
+        time_start = word['start_ts'] - time * \
+            2 if (word['start_ts'] - time*2) > 0 else 0
+        time_end = word['end_ts'] + time
+
+        # remove word from transcript audio from unvalid_word_timestamps
+        trim(config.transcribe_file, time_start, time_end)
+
+        # delete that word obj from unvalid_word_timestamps and transcript
+        delete_word(word, transcript)
+        delete_word(word, word_timestamps)
+
+        # adjust_transcript transcript and unvalid_word_timestamps
+        adjust_transcript(time, transcript)
+        adjust_transcript(time, word_timestamps)
 
     return transcript
