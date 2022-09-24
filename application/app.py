@@ -5,7 +5,7 @@ from flask import Flask, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcribe import get_timestamps, remove_words, transcribe, to_words
+from application.voice.transcript import get_timestamps, remove_words, transcribe, to_words
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = config.upload_folder
