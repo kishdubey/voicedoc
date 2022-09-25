@@ -10,7 +10,7 @@ def synthesize(output_text, model, speaker_file, language, output_file):
     """
     subprocess.run(
         [
-            "tts",
+            "/home/kishdubey/anaconda3/bin/tts",
             "--text",
             f"{output_text}",
             "--model_name",

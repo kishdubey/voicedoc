@@ -56,12 +56,15 @@ def handle_data():
 
 
 
-        # ptr_transcript = 0
-        # for i in range(len(valid_words)):
-        #     if valid_words[i] != transcript[ptr_transcript]["word"]:
-        #         synthesize(valid_words[i], config.model, config.speaker_file, config.language, "synthesis.wav")
-        #     elif ptr_transcript < len(transcript)-1:
-        #         ptr_transcript += 1
+        ptr_transcript = 0
+        for i in range(len(valid_words)):
+            if valid_words[i] != transcript[ptr_transcript]["word"]:
+                synthesize(valid_words[i], config.model, config.transcribe_file, config.language, "synthesis.wav")
+
+                #clim new file to record.wav 
+                # adjust transcript 
+            elif ptr_transcript < len(transcript)-1:
+                ptr_transcript += 1
 
         # append in between end_ts and start_ts of words on left and right respectively
 
