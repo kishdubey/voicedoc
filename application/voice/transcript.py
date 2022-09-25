@@ -78,10 +78,14 @@ def adjust_transcript(time, transcript):
     """
     for script in transcript:
         script["start_ts"] = (
-            round(script["start_ts"] - time, 3) if round(script["start_ts"]) > 0 else 0
+            round(script["start_ts"] - time, 3)
+            if round(script["start_ts"] - time) > 0
+            else 0
         )
         script["end_ts"] = (
-            round(script["end_ts"] - time, 3) if round(script["end_ts"]) > 0 else 0
+            round(script["end_ts"] - time, 3)
+            if round(script["end_ts"] - time) > 0
+            else 0
         )
 
     return transcript
@@ -107,11 +111,11 @@ def remove_words(word_timestamps, transcript):
             else 0
         )
         time_start = (
-            round(word["start_ts"] - difference // 2, 3)
-            if round(word["start_ts"] - difference // 2, 3) > 0
+            round(word["start_ts"] - difference * 2, 3)
+            if round(word["start_ts"] - difference * 2, 3) > 0
             else 0
         )
-        time_end = word["end_ts"] + difference // 2
+        time_end = word["end_ts"] + difference * 2
         time = (
             round(time_end - time_start, 3)
             if round(time_end - time_start, 3) > 0
