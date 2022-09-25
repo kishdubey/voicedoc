@@ -10,7 +10,7 @@ class Language(Enum):
 
 
 class Model(Enum):
-    yourtts = 'tts_models/multilingual/multi-dataset/your_tts'
+    yourtts = "tts_models/multilingual/multi-dataset/your_tts"
 
 
 @dataclass
@@ -31,7 +31,8 @@ class Config:
     _model:           Model    = field(init=False, repr=False)
     _language:        Language = field(init=False, repr=False)
 
-    '''upload_folder getters and setters'''
+    """upload_folder getters and setters"""
+
     @property
     def upload_folder(self) -> str:
         return self._upload_folder
@@ -40,7 +41,8 @@ class Config:
     def upload_folder(self, upload_folder: str):
         self._upload_folder = upload_folder
 
-    '''speaker_file getters and setters'''
+    """speaker_file getters and setters"""
+
     @property
     def speaker_file(self) -> str:
         return self._speaker_file
@@ -49,7 +51,8 @@ class Config:
     def speaker_file(self, speaker_file: str):
         self._speaker_file = speaker_file
 
-    '''transcribe_file getters and setters'''
+    """transcribe_file getters and setters"""
+
     @property
     def transcribe_file(self) -> str:
         return self._transcribe_file
@@ -58,7 +61,8 @@ class Config:
     def transcribe_file(self, transcribe_file: str):
         self._transcribe_file = transcribe_file
 
-    '''duration getters and setters'''
+    """duration getters and setters"""
+
     @property
     def duration(self) -> int:
         return self._duration
@@ -67,7 +71,8 @@ class Config:
     def duration(self, duration: int):
         self._duration = duration
 
-    '''output_text getters and setters'''
+    """output_text getters and setters"""
+
     @property
     def output_text(self) -> str:
         return self._output_text
@@ -76,7 +81,8 @@ class Config:
     def output_text(self, output_text: str):
         self._output_text = output_text
 
-    '''model getters and setters'''
+    """model getters and setters"""
+
     @property
     def model(self) -> Model:
         return self._model
@@ -85,7 +91,8 @@ class Config:
     def model(self, model: Model):
         self._model = model
 
-    '''language getters and setters'''
+    """language getters and setters"""
+
     @property
     def language(self) -> Language:
         return self._language
@@ -96,11 +103,11 @@ class Config:
 
 
 config = Config(
-    upload_folder   = 'static/audio',
-    speaker_file    = os.path.abspath('application/static/audio/record.wav'),
-    transcribe_file = os.path.abspath('application/static/audio/record.wav'),
+    upload_folder   = "static/audio",
+    speaker_file    = os.path.abspath("application/static/audio/record.wav"),
+    transcribe_file = os.path.abspath("application/static/audio/record.wav"),
     duration        = 60,
-    output_text     = 'Hello World. Making sure this sounds human enough.',
+    output_text     = "Hello World. Making sure this sounds human enough.",
     model           = Model.yourtts.value,
-    language        = Language.en.name
+    language        = Language.en.name,
 )
