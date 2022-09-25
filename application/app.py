@@ -5,43 +5,51 @@ from flask import Flask, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
-from application.voice.transcript import get_timestamps, remove_words, transcribe, to_words
+from application.voice.transcript import (
+    get_timestamps,
+    remove_words,
+    transcribe,
+    to_words,
+)
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = config.upload_folder
+app.config["UPLOAD_FOLDER"] = config.upload_folder
 app.secret_key = "super secret key"
 
 
-@app.route('/')
+@app.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route('/edit', methods=['GET', 'POST'])
+@app.route("/edit", methods=["GET", "POST"])
 def edit():
-    if request.method == 'POST':
-        f = request.files['file']
-        f.save(os.path.join(
-            app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-        config.speaker_file = 'audio/' + f.filename
-        config.transcribe_file = os.path.abspath(
-            f"{config.upload_folder}/{f.filename}")
+    if request.method == "POST":
+        f = request.files["file"]
+        f.save(os.path.join(app.config["UPLOAD_FOLDER"], secure_filename(f.filename)))
+        config.speaker_file = "audio/" + f.filename
+        config.transcribe_file = os.path.abspath(f"{config.upload_folder}/{f.filename}")
 
         transcript = transcribe(config.transcribe_file)
-    return render_template("edit.html", audio_file=config.speaker_file, transcript=transcript, transcript_words=to_words(transcript))
+    return render_template(
+        "edit.html",
+        audio_file=config.speaker_file,
+        transcript=transcript,
+        transcript_words=to_words(transcript),
+    )
 
 
-@app.route('/handle_data', methods=['GET', 'POST'])
+@app.route("/handle_data", methods=["GET", "POST"])
 def handle_data():
-    if request.method == 'POST':
-        valid_words = request.form['validWords'].split(',')
-        unvalid_words = request.form['unvalidWords'].split(',')
-        transcript_words = ast.literal_eval(request.form['transcriptWords'])
-        transcript = ast.literal_eval(request.form['transcript'])
+    if request.method == "POST":
+        valid_words = request.form["validWords"].split(",")
+        unvalid_words = request.form["unvalidWords"].split(",")
+        transcript_words = ast.literal_eval(request.form["transcriptWords"])
+        transcript = ast.literal_eval(request.form["transcript"])
 
         # getting timestamps for unvalid words
         unvalid_word_timestamps = get_timestamps(unvalid_words, transcript)
-        
+
         # removing unvalid words from transcript and audio
         transcript = remove_words(unvalid_word_timestamps, transcript)
 
@@ -49,9 +57,10 @@ def handle_data():
         # syntheizes that word
         # append in between end_ts and start_ts of words on left and right respectively
 
-    # sending file 
-    filename = config.transcribe_file.split('/')[-1]
+    # sending edited file back
+    filename = config.transcribe_file.split("/")[-1]
     return send_file(config.transcribe_file, download_name=filename)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
