@@ -1,8 +1,10 @@
 import torch
-from application.voice.edit import trim
-from application.config.config import config
 from glob import glob
 import random
+
+from application.voice.synthesis import synthesize
+from application.voice.edit import concatenate, get_audio, trim
+from application.config.config import config
 
 
 def transcribe(input_file):
@@ -135,15 +137,37 @@ def remove_words(word_timestamps, transcript):
             else 0
         )
 
-        # remove word from transcript audio from unvalid_word_timestamps
+        # remove word from audio and transcript and unvalid_word_timestamps
         trim(config.transcribe_file, time_start, time_end)
 
-        # delete that word obj from unvalid_word_timestamps and transcript
         delete_word(word, transcript)
         delete_word(word, word_timestamps)
 
-        # adjust_transcript transcript and unvalid_word_timestamps
         adjust_transcript_delete(time, transcript)
         adjust_transcript_delete(time, word_timestamps)
 
-    return transcript
+
+def add_words(words, transcript):
+    """
+    Add synthesizied speech to audio and adjust transcript
+    """
+    ptr_transcript = 0
+    for i in range(len(words)):
+        if words[i] != transcript[ptr_transcript]["word"]:
+            synthesize(
+                words[i],
+                config.model,
+                config.transcribe_file,
+                config.language,
+                config.synthesis_file,
+            )
+
+            synthesized_audio = get_audio(config.synthesis_file)
+            time_start = transcript[ptr_transcript]["start_ts"]
+            time = synthesized_audio.duration_seconds
+            concatenate(config.transcribe_file, config.synthesis_file, time_start)
+
+            adjust_transcript_add(time, transcript)
+
+        elif ptr_transcript < len(transcript) - 1:
+            ptr_transcript += 1
