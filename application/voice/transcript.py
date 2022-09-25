@@ -102,7 +102,9 @@ def get_timestamps(words, transcript):
 
 
 def remove_words(word_timestamps, transcript):
-
+    """
+    Remove words from transcript and from audio
+    """
     iterate_list = word_timestamps[:]
     for word in iterate_list:
         difference = (

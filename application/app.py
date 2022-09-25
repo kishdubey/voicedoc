@@ -5,6 +5,7 @@ from flask import Flask, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
+from application.voice.synthesis import synthesize
 from application.voice.transcript import (
     get_timestamps,
     remove_words,
@@ -53,8 +54,15 @@ def handle_data():
         # removing unvalid words from transcript and audio
         transcript = remove_words(unvalid_word_timestamps, transcript)
 
-        # find word to add in betweeen two valid words
-        # syntheizes that word
+
+
+        # ptr_transcript = 0
+        # for i in range(len(valid_words)):
+        #     if valid_words[i] != transcript[ptr_transcript]["word"]:
+        #         synthesize(valid_words[i], config.model, config.speaker_file, config.language, "synthesis.wav")
+        #     elif ptr_transcript < len(transcript)-1:
+        #         ptr_transcript += 1
+
         # append in between end_ts and start_ts of words on left and right respectively
 
     # sending edited file back
