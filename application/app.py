@@ -5,12 +5,14 @@ from flask import Flask, redirect, render_template, request, send_file, url_for
 from werkzeug.utils import secure_filename
 
 from application.config.config import config
+from application.voice.edit import get_audio, concatenate
 from application.voice.synthesis import synthesize
 from application.voice.transcript import (
     get_timestamps,
     remove_words,
     transcribe,
     to_words,
+    adjust_transcript_add
 )
 
 app = Flask(__name__)
@@ -54,19 +56,30 @@ def handle_data():
         # removing unvalid words from transcript and audio
         transcript = remove_words(unvalid_word_timestamps, transcript)
 
-
-
         ptr_transcript = 0
         for i in range(len(valid_words)):
             if valid_words[i] != transcript[ptr_transcript]["word"]:
-                synthesize(valid_words[i], config.model, config.transcribe_file, config.language, "synthesis.wav")
+                synthesize(
+                    valid_words[i],
+                    config.model,
+                    config.transcribe_file,
+                    config.language,
+                    config.synthesis_file,
+                )
 
-                #clim new file to record.wav 
-                # adjust transcript 
-            elif ptr_transcript < len(transcript)-1:
+                synthesized_audio = get_audio(config.synthesis_file)
+
+                # concat new synthesized audio to config.transcribe_file
+                time_start = transcript[ptr_transcript]['start_ts']
+                time = synthesized_audio.duration_seconds
+
+                concatenate(config.transcribe_file, config.synthesis_file, time_start)
+
+                # adjust transcript
+                adjust_transcript_add(time, transcript)
+
+            elif ptr_transcript < len(transcript) - 1:
                 ptr_transcript += 1
-
-        # append in between end_ts and start_ts of words on left and right respectively
 
     # sending edited file back
     filename = config.transcribe_file.split("/")[-1]

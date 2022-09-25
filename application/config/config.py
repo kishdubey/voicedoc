@@ -18,6 +18,7 @@ class Config:
     upload_folder:    str
     speaker_file:     str
     transcribe_file:  str
+    synthesis_file:   str
     duration:         int
     model:            Model
     language:         Language
@@ -25,6 +26,7 @@ class Config:
     _upload_folder:   str      = field(init=False, repr=False)
     _speaker_file:    str      = field(init=False, repr=False)
     _transcribe_file: str      = field(init=False, repr=False)
+    _synthesis_file:  str      = field(init=False, repr=False)
     _duration:        int      = field(init=False, repr=False)
     _model:           Model    = field(init=False, repr=False)
     _language:        Language = field(init=False, repr=False)
@@ -58,6 +60,16 @@ class Config:
     @transcribe_file.setter
     def transcribe_file(self, transcribe_file: str):
         self._transcribe_file = transcribe_file
+
+    """synthesis_file getters and setters"""
+
+    @property
+    def synthesis_file(self) -> str:
+        return self._synthesis_file
+
+    @synthesis_file.setter
+    def synthesis_file(self, synthesis_file: str):
+        self._synthesis_file = synthesis_file
 
     """duration getters and setters"""
 
@@ -94,6 +106,7 @@ config = Config(
     upload_folder   = "static/audio",
     speaker_file    = os.path.abspath("application/static/audio/record.wav"),
     transcribe_file = os.path.abspath("application/static/audio/record.wav"),
+    synthesis_file  = os.path.abspath("static/audio/synthesis.wav"),
     duration        = 60,
     model           = Model.yourtts.value,
     language        = Language.en.name,

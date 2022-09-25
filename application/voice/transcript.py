@@ -72,7 +72,7 @@ def delete_word(word, transcript):
     return transcript
 
 
-def adjust_transcript(time, transcript):
+def adjust_transcript_delete(time, transcript):
     """
     Adjusts rest of timestamped transcript to reflect deleted clipping of duration, time
     """
@@ -87,6 +87,17 @@ def adjust_transcript(time, transcript):
             if round(script["end_ts"] - time) > 0
             else 0
         )
+
+    return transcript
+
+
+def adjust_transcript_add(time, transcript):
+    """
+    Adjusts rest of timestamped transcript to reflect added clipping of duration, time
+    """
+    for script in transcript:
+        script["start_ts"] = round(script["start_ts"] + time, 3)
+        script["end_ts"] = round(script["end_ts"] + time, 3)
 
     return transcript
 
@@ -132,7 +143,7 @@ def remove_words(word_timestamps, transcript):
         delete_word(word, word_timestamps)
 
         # adjust_transcript transcript and unvalid_word_timestamps
-        adjust_transcript(time, transcript)
-        adjust_transcript(time, word_timestamps)
+        adjust_transcript_delete(time, transcript)
+        adjust_transcript_delete(time, word_timestamps)
 
     return transcript
