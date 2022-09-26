@@ -11,8 +11,16 @@ edit your audio like a doc. trim videos by deleting words. forgot to say somethi
 
 ```sh
 git clone https://github.com/kishdubey/voicedoc.git
-pip install -r requirements.txt
-cd voicedoc/application
+cd voicedoc
+```
+
+```sh
+pip3 install -e .
+pip3 install -r requirements.txt
+cd application
+```
+
+```sh
 python3 app.py
 ```
 Go to,
@@ -20,4 +28,5 @@ Go to,
 http://localhost:5000/
 ```
 ## Demo
-![](https://i.ibb.co/mC9VzFt/Untitled-video-Made-with-Clipchamp.gif)
+<img src="https://i.ibb.co/mC9VzFt/Untitled-video-Made-with-Clipchamp.gif"/>
+
