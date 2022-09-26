@@ -1,5 +1,3 @@
-
-# voicedoc
 > editing audio as simple as editing a doc. 
 
 edit your audio like a doc. trim videos by deleting words. forgot to say something while recording? no worries! a unique audio profile is created through an ai model that sounds just like you.
