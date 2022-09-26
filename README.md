@@ -28,4 +28,4 @@ Go to,
 http://localhost:5000/
 ```
 ## Demo
-![Voicedoc Demo](https://github.com/kishdubey/voicedoc/tree/main/application/static/assets/img/voicedoc-demo.gif)
+![Voicedoc Demo](https://github.com/kishdubey/voicedoc/blob/main/application/static/assets/img/voicedoc-demo.gif)
