@@ -28,5 +28,4 @@ Go to,
 http://localhost:5000/
 ```
 ## Demo
-<img src="https://i.ibb.co/mC9VzFt/Untitled-video-Made-with-Clipchamp.gif"/>
-
+![Voicedoc Demo](https://github.com/kishdubey/voicedoc/tree/main/application/static/assets/img/voicedoc-demo.gif)
