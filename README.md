@@ -4,7 +4,7 @@
 
 edit your audio like a doc. trim videos by deleting words. forgot to say something while recording? no worries! a unique audio profile is created through an ai model that sounds just like you.
 
-<img src="https://ibb.co/J51dqmK"/>
+<img src="https://i.ibb.co/ZWjJSGV/Screenshot-from-2022-09-25-22-00-17.png"/>
 
 
 ## Local Installation & Setup
@@ -20,4 +20,4 @@ Go to,
 http://localhost:5000/
 ```
 ## Demo
-![](https://ibb.co/PZcvCz4)
+![](https://i.ibb.co/mC9VzFt/Untitled-video-Made-with-Clipchamp.gif)
